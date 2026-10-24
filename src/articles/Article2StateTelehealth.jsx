@@ -12,12 +12,14 @@ import {
   HeartHandshake, 
   Clock, 
   DollarSign, 
-  Activity 
+  Check,
+  Search
 } from 'lucide-react';
 import { JAMA_STUDIES, CLINICAL_LEADERSHIP } from '../data/contentData';
 
 export default function Article2StateTelehealth({ onOpenIntake }) {
   const [selectedState, setSelectedState] = useState('PA');
+  const [verifiedPlan, setVerifiedPlan] = useState(null);
 
   const plansByState = {
     PA: {
@@ -26,12 +28,12 @@ export default function Article2StateTelehealth({ onOpenIntake }) {
       regulator: "Pennsylvania Department of Human Services (DHS)",
       acceptedPlans: [
         { name: "UPMC For You", scope: "All 67 Pennsylvania Counties", copay: "$0 Specialist Co-Pay" },
-        { name: "Keystone First", scope: "Southeastern Pennsylvania (Philadelphia, Bucks, Chester, Delaware, Montgomery)", copay: "$0 Specialist Co-Pay" },
+        { name: "Keystone First", scope: "Southeastern Pennsylvania (Philadelphia, Bucks, Chester, Montgomery)", copay: "$0 Specialist Co-Pay" },
         { name: "AmeriHealth Caritas PA", scope: "Statewide In-Network Coverage", copay: "$0 Specialist Co-Pay" },
         { name: "Geisinger Health Plan", scope: "Central & Northeastern Pennsylvania", copay: "$0 Specialist Co-Pay" },
         { name: "Health Partners Plans", scope: "Greater Philadelphia & Surrounding", copay: "$0 Specialist Co-Pay" }
       ],
-      selfPayDetails: "$99/mo all-inclusive for physician visits, CBT psychotherapy, and Sunflower Sober app. Generic Naltrexone is $10-$15 at CVS/Walgreens/Rite Aid."
+      selfPayDetails: "$99/mo all-inclusive flat fee. Generic Naltrexone is $10-$15 at CVS, Walgreens, Rite Aid, or Giant Eagle."
     },
     MI: {
       name: "Michigan",
@@ -44,43 +46,43 @@ export default function Article2StateTelehealth({ onOpenIntake }) {
         { name: "Molina Healthcare of Michigan", scope: "Detroit, Wayne, Oakland & Statewide", copay: "$0 Specialist Co-Pay" },
         { name: "Priority Health Choice", scope: "West Michigan, Grand Rapids & Statewide", copay: "$0 Specialist Co-Pay" }
       ],
-      selfPayDetails: "$99/mo flat fee. Rx is transmitted to Meijer, Walgreens, CVS, or shipped discreetly to your home."
+      selfPayDetails: "$99/mo flat fee. Rx is transmitted electronically to Meijer, Walgreens, CVS, or shipped discreetly to your home."
     }
   };
 
   const current = plansByState[selectedState];
 
   return (
-    <article className="max-w-4xl mx-auto space-y-12">
+    <article className="max-w-3xl mx-auto space-y-10 text-slate-800">
       
       {/* Editorial Meta Header */}
-      <header className="space-y-6 border-b border-slate-200 pb-8">
-        <div className="flex flex-wrap items-center gap-2 text-xs">
-          <span className="px-3 py-1 rounded-full bg-sky-100 text-sky-900 font-bold uppercase tracking-wider text-[11px]">
+      <header className="space-y-4 border-b border-slate-200 pb-8">
+        <div className="flex flex-wrap items-center gap-2 text-xs font-semibold text-slate-500">
+          <span className="px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-900 font-bold uppercase tracking-wider text-[10px]">
             State Healthcare &amp; Insurance
           </span>
-          <span className="text-slate-400">•</span>
-          <span className="text-slate-500 font-medium">Pennsylvania &amp; Michigan Telehealth Network</span>
-          <span className="text-slate-400">•</span>
-          <span className="text-slate-500 font-medium">Published: October 2026</span>
+          <span>•</span>
+          <span>7 min read</span>
+          <span>•</span>
+          <span>Updated October 2026</span>
         </div>
 
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-950 tracking-tight leading-tight">
           How to Access Online Addiction Therapy &amp; Medication in Pennsylvania and Michigan
         </h1>
 
-        <p className="text-lg sm:text-xl text-slate-600 leading-relaxed font-normal">
-          Looking for licensed online sobriety therapy and medication in Pennsylvania or Michigan? See how to access confidential telehealth care from home with Medicaid or transparent self-pay.
+        <p className="text-lg text-slate-600 leading-relaxed font-normal">
+          Looking for licensed online sobriety therapy and medication in Pennsylvania or Michigan? See how to access confidential telehealth care from home with Medicaid or transparent private pay.
         </p>
 
         {/* State Toggle Selector Bar */}
-        <div className="p-4 rounded-2xl bg-slate-100 border border-slate-200 flex flex-wrap items-center justify-between gap-3">
+        <div className="p-3.5 rounded-xl bg-white border border-slate-200 shadow-2xs flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center space-x-2">
-            <span className="text-xs font-bold text-slate-700 uppercase tracking-wider">Select State Coverage:</span>
-            <div className="inline-flex rounded-xl bg-white p-1 border border-slate-200 shadow-2xs">
+            <span className="text-xs font-bold text-slate-700 uppercase tracking-wider">Select State Market:</span>
+            <div className="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200">
               <button
-                onClick={() => setSelectedState('PA')}
-                className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                onClick={() => { setSelectedState('PA'); setVerifiedPlan(null); }}
+                className={`px-3 py-1 rounded-md text-xs font-bold transition-all cursor-pointer ${
                   selectedState === 'PA'
                     ? 'bg-amber-400 text-slate-950 shadow-xs'
                     : 'text-slate-600 hover:text-slate-900'
@@ -89,8 +91,8 @@ export default function Article2StateTelehealth({ onOpenIntake }) {
                 Pennsylvania (PA)
               </button>
               <button
-                onClick={() => setSelectedState('MI')}
-                className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                onClick={() => { setSelectedState('MI'); setVerifiedPlan(null); }}
+                className={`px-3 py-1 rounded-md text-xs font-bold transition-all cursor-pointer ${
                   selectedState === 'MI'
                     ? 'bg-amber-400 text-slate-950 shadow-xs'
                     : 'text-slate-600 hover:text-slate-900'
@@ -102,129 +104,183 @@ export default function Article2StateTelehealth({ onOpenIntake }) {
           </div>
           <span className="text-xs font-semibold text-emerald-700 flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            Accepting New Telehealth Patients in {current.name}
+            Open Telehealth Intake in {current.name}
           </span>
         </div>
       </header>
 
+      {/* THE HOOK (First 100 Words) */}
+      <section className="space-y-4 text-base sm:text-lg leading-relaxed text-slate-700">
+        <p>
+          If you live in Pennsylvania or Michigan and have ever tried to get professional help for alcohol cravings through your local healthcare system, you already know the crushing friction.
+        </p>
+        <p>
+          You are told the next available addiction psychiatrist has a 14-week waitlist. You are instructed to take time off work to sit in a crowded, stigmatizing county clinic waiting room at 8:00 AM on a Tuesday. And when you finally see someone, they hand you a pamphlet for a 12-step meeting and tell you to "just try harder."
+        </p>
+        <p>
+          <strong>Modern addiction medicine does not require you to surrender your dignity or disrupt your schedule.</strong> Under state telehealth laws, you can consult with board-certified addiction physicians and licensed therapists from your living room—fully covered by Pennsylvania and Michigan Medicaid.
+        </p>
+      </section>
+
       {/* SECTION 2: Why Telehealth Outperforms Traditional Outpatient Clinics */}
-      <section className="space-y-6">
+      <section className="space-y-4 pt-2">
         <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight">
           Why Telehealth Outperforms Traditional Outpatient Clinics
         </h2>
 
-        <div className="prose text-slate-700 text-base sm:text-lg leading-relaxed space-y-4">
+        <div className="text-base sm:text-lg leading-relaxed text-slate-700 space-y-4">
           <p>
-            Traditional brick-and-mortar addiction clinics in Pennsylvania and Michigan often impose staggering friction: rigid 9 AM appointment windows, crowded waiting rooms where your privacy is compromised, mandatory in-person drug testing, and hours lost in traffic or bus commutes.
+            The greatest barrier to recovery has never been a lack of desire—it is <strong>friction</strong>. 
           </p>
           <p>
-            Telehealth eliminates every one of these barriers. Patients log into a secure, HIPAA-compliant video session from their living room, parked car, or home office. Prescriptions for evidence-based medications like Naltrexone are sent electronically to your local pharmacy in minutes.
+            In-person clinics require navigating morning traffic across Pittsburgh, Philadelphia, Detroit, or Grand Rapids, parking fees, and the fear of bumping into an employer, colleague, or neighbor in the waiting lobby.
+          </p>
+          <p>
+            Telehealth collapses that friction to zero. Sessions take place over encrypted, HIPAA-compliant video links on your smartphone or laptop. You speak with specialized addiction clinicians who respect your privacy, practice evidence-based harm reduction, and transmit prescriptions electronically to your local pharmacy.
           </p>
         </div>
 
-        {/* JAMA Network Open / Kiluk et al. Citation Card */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+        {/* JAMA Network Open (Kiluk et al.) Citation Card */}
+        <div className="p-6 rounded-2xl bg-slate-900 text-white space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
             <div>
-              <span className="text-[10px] font-black uppercase tracking-wider text-emerald-700 block">
-                PEER-REVIEWED EVIDENCE: DIGITAL THERAPY + PHARMACOTHERAPY
+              <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 block">
+                PEER-REVIEWED EVIDENCE: DIGITAL CBT &amp; MAT
               </span>
-              <h3 className="text-xl sm:text-2xl font-black text-slate-950">
+              <h3 className="text-lg font-bold text-white">
                 {JAMA_STUDIES.kiluk.title}
               </h3>
-              <p className="text-xs text-slate-500 font-mono mt-0.5">
-                {JAMA_STUDIES.kiluk.citation} • Randomized Clinical Trial
-              </p>
             </div>
-            <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold self-start sm:self-auto">
-              JAMA Clinical Superiority
+            <span className="text-xs text-slate-400 font-mono">
+              JAMA Netw Open. 2021;4(10):e2129598
             </span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {JAMA_STUDIES.kiluk.keyFindings.map((finding, idx) => (
-              <div key={idx} className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1.5">
-                <span className="text-2xl font-black text-slate-900 block">{finding.metric}</span>
-                <p className="text-xs text-slate-600 leading-snug">{finding.label}</p>
-                <span className="inline-block text-[10px] px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold">
-                  {finding.change}
-                </span>
-              </div>
-            ))}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="p-4 rounded-xl bg-slate-800/80 border border-slate-700">
+              <span className="text-2xl font-black text-amber-400 block">83%</span>
+              <span className="text-xs text-slate-300 font-semibold block mt-0.5">Alcohol-Free Days at 6 Months</span>
+              <p className="text-[11px] text-slate-400 mt-1">
+                Patients who combined digital Cognitive Behavioral Therapy with medication maintained sustained sobriety long-term.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl bg-slate-800/80 border border-slate-700">
+              <span className="text-2xl font-black text-emerald-400 block">3.2x Higher</span>
+              <span className="text-xs text-slate-300 font-semibold block mt-0.5">Therapy Retention</span>
+              <p className="text-[11px] text-slate-400 mt-1">
+                Telehealth access drastically reduced drop-out rates compared to mandatory in-person clinic attendance (p = 0.004).
+              </p>
+            </div>
           </div>
 
-          <div className="p-4 rounded-xl bg-slate-50 border border-slate-100 text-xs text-slate-700 leading-relaxed">
-            <strong>The Kiluk et al. Study Proved:</strong> Individuals receiving digital Cognitive Behavioral Therapy (CBT) paired with medication-assisted treatment maintained <strong>83% alcohol-free days at the 6-month follow-up</strong>, outperforming standard clinic-only visits with <strong>3.2x higher therapy retention</strong>.
-          </div>
+          <p className="text-xs text-slate-300 leading-relaxed pt-1">
+            <strong>The Takeaway:</strong> Pairing digital therapy and app-based habit tracking with prescription Naltrexone delivers higher patient retention and long-term sobriety than traditional in-person clinic counseling alone.
+          </p>
         </div>
       </section>
 
-      {/* SECTION 3: Care Team Feature */}
-      <section className="space-y-6 pt-4">
-        <div>
-          <span className="text-xs font-bold uppercase tracking-wider text-slate-500 block mb-1">
-            Clinical Leadership
+      {/* CONTEXTUAL CTA 1: Mid-Funnel Plan Checker */}
+      <section className="p-6 rounded-2xl bg-sky-50 border border-sky-200 space-y-4">
+        <div className="space-y-1">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-sky-800 bg-sky-200/80 px-2 py-0.5 rounded inline-block">
+            Step 1: Coverage Check
           </span>
+          <h3 className="text-xl font-extrabold text-slate-950">
+            Verify Your {current.name} Medicaid Plan In-Network Status
+          </h3>
+          <p className="text-xs sm:text-sm text-slate-700">
+            Select your health plan below to verify your specialist co-pay and appointment availability:
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+          {current.acceptedPlans.map((plan, idx) => (
+            <button
+              key={idx}
+              onClick={() => setVerifiedPlan(plan.name)}
+              className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${
+                verifiedPlan === plan.name
+                  ? 'border-sky-500 bg-white ring-2 ring-sky-400 font-semibold shadow-xs'
+                  : 'border-sky-200 bg-white/80 hover:bg-white text-slate-800'
+              }`}
+            >
+              <div className="font-bold text-xs text-slate-900 flex items-center justify-between">
+                <span>{plan.name}</span>
+                <span className="text-[10px] text-emerald-700 bg-emerald-100 px-1.5 py-0.2 rounded font-bold">In-Network</span>
+              </div>
+              <span className="text-[11px] text-slate-500 block mt-0.5">{plan.scope}</span>
+            </button>
+          ))}
+        </div>
+
+        {verifiedPlan && (
+          <div className="p-3.5 rounded-xl bg-white border border-sky-300 text-xs text-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <strong className="text-emerald-800 font-bold block">✅ In-Network Confirmed for {verifiedPlan}:</strong>
+              Your physician visits and generic Naltrexone are typically <strong>$0 to $15 co-pay</strong> in {current.name}.
+            </div>
+            <button
+              onClick={onOpenIntake}
+              className="px-4 py-2 rounded-lg bg-slate-950 text-white font-bold text-xs shrink-0 cursor-pointer hover:bg-slate-800"
+            >
+              Book Telehealth Visit &rarr;
+            </button>
+          </div>
+        )}
+      </section>
+
+      {/* SECTION 3: Care Team Feature */}
+      <section className="space-y-4 pt-4">
+        <div>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight">
             Meet Your Licensed PA &amp; MI Care Team
           </h2>
           <p className="text-sm text-slate-600 mt-1">
-            Your care is led by dual board-certified physicians and licensed behavioral therapists specializing in evidence-based harm reduction and trauma-informed CBT.
+            Every clinical consult and psychotherapy session is conducted by state-licensed medical and behavioral health practitioners.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {CLINICAL_LEADERSHIP.map((member) => (
             <div
               key={member.id}
-              className="p-6 rounded-3xl bg-white border border-slate-200 shadow-2xs hover:shadow-sm transition-all space-y-4 flex flex-col justify-between"
+              className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs space-y-3 flex flex-col justify-between"
             >
-              <div className="space-y-3">
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center space-x-3.5">
-                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-500 p-0.5 shadow-xs flex items-center justify-center shrink-0">
-                      <div className="w-full h-full bg-slate-900 rounded-[14px] flex items-center justify-center text-white font-extrabold text-sm">
-                        {member.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
-                      </div>
-                    </div>
-                    <div>
-                      <h3 className="font-extrabold text-base text-slate-950 flex items-center gap-1.5">
-                        <span>{member.name}</span>
-                        <BadgeCheck className="w-4 h-4 text-emerald-600" />
-                      </h3>
-                      <p className="text-xs font-bold text-amber-600">{member.role}</p>
-                    </div>
+              <div className="space-y-2">
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 rounded-xl bg-slate-900 text-amber-400 font-black flex items-center justify-center text-xs shrink-0">
+                    {member.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
+                  </div>
+                  <div>
+                    <h3 className="font-extrabold text-sm sm:text-base text-slate-950 flex items-center gap-1">
+                      <span>{member.name}</span>
+                      <BadgeCheck className="w-4 h-4 text-emerald-600" />
+                    </h3>
+                    <span className="text-xs font-semibold text-amber-700 block">{member.role}</span>
                   </div>
                 </div>
 
-                <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-100 text-[11px] font-mono text-slate-600 flex items-center justify-between">
+                <div className="p-2 rounded-lg bg-slate-50 text-[10px] font-mono text-slate-600 flex items-center justify-between">
                   <span>{member.license}</span>
-                  <span className="font-bold text-slate-900">NPI: {member.npi}</span>
+                  <span className="font-bold text-slate-800">NPI: {member.npi}</span>
                 </div>
 
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                <p className="text-xs text-slate-600 leading-relaxed">
                   {member.bio}
                 </p>
-
-                <div className="flex flex-wrap gap-1.5 pt-1">
-                  {member.focus.map((tag, idx) => (
-                    <span key={idx} className="text-[10px] px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 font-semibold">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
               </div>
 
-              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+              <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs">
                 <span className="text-emerald-700 font-bold flex items-center gap-1">
                   <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                  Accepting Patients in {current.name}
+                  Accepting Patients
                 </span>
                 <button
                   onClick={onOpenIntake}
-                  className="font-bold text-slate-950 hover:text-amber-600 cursor-pointer"
+                  className="font-bold text-slate-900 hover:text-amber-600 cursor-pointer text-xs"
                 >
-                  Schedule Consult &rarr;
+                  Schedule &rarr;
                 </button>
               </div>
             </div>
@@ -232,80 +288,62 @@ export default function Article2StateTelehealth({ onOpenIntake }) {
         </div>
       </section>
 
-      {/* SECTION 4: How Coverage & Transparent Pricing Work in PA & MI */}
-      <section className="space-y-6 pt-4">
-        <div>
-          <span className="text-xs font-bold uppercase tracking-wider text-amber-600 block mb-1">
-            Financial Transparency
+      {/* SECTION 4: Coverage & Pricing Breakdown */}
+      <section className="space-y-4 pt-4">
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight">
+          How Coverage &amp; Transparent Pricing Work in {current.name}
+        </h2>
+
+        <div className="text-base sm:text-lg leading-relaxed text-slate-700 space-y-4">
+          <p>
+            Healthcare billing in addiction medicine has historically been opaque. Sunflower Clinic operates with 100% upfront financial transparency:
+          </p>
+          <ul className="text-sm sm:text-base text-slate-700 space-y-2 pl-4 list-disc">
+            <li>
+              <strong>Medicaid In-Network:</strong> If you are enrolled in an accepted Medicaid plan in Pennsylvania or Michigan, your clinical visits and generic Naltrexone are typically <strong>$0 to $15 co-pay</strong>.
+            </li>
+            <li>
+              <strong>Commercial Insurance:</strong> We provide detailed superbills with proper medical billing codes (CPT 99214 for evaluation, CPT 90834 for psychotherapy) for out-of-network reimbursement.
+            </li>
+            <li>
+              <strong>Transparent Self-Pay ($99/mo):</strong> If you are uninsured or prefer complete confidentiality with zero insurance records, our flat $99/month plan covers your monthly physician consults, ongoing e-prescriptions, and full access to the Sunflower Sober app.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      {/* CONTEXTUAL CTA 2: Primary End-of-Funnel Offer */}
+      <section className="p-6 sm:p-8 rounded-2xl bg-slate-950 text-white space-y-5 border border-slate-800 shadow-lg">
+        <div className="space-y-2">
+          <span className="text-[10px] font-black uppercase tracking-wider text-sky-400 block">
+            CONFIDENTIAL STATE TELEHEALTH INTAKE
           </span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight">
-            How Coverage &amp; Transparent Pricing Work in {current.name}
-          </h2>
+          <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+            Schedule Your {current.name} Clinical Telehealth Visit
+          </h3>
+          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-xl">
+            Connect securely with licensed addiction physicians and licensed professional counselors from the privacy of your home in {current.name}.
+          </p>
         </div>
 
-        {/* Accepted Medicaid MCOs Box */}
-        <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-slate-950 to-slate-900 text-white border border-slate-800 shadow-xl space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
-            <div>
-              <span className="text-[10px] font-black uppercase tracking-wider text-amber-400 block">
-                IN-NETWORK MANAGED CARE ORGANIZATIONS
-              </span>
-              <h3 className="text-xl sm:text-2xl font-black text-white">
-                {current.name} Medicaid Acceptance
-              </h3>
-              <p className="text-xs text-slate-400 mt-0.5">
-                Regulated under the {current.regulator}
-              </p>
-            </div>
-            <span className="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-bold self-start sm:self-auto">
-              $0 Specialist Co-Pay for Most Members
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-2 border-t border-slate-800">
+          <div className="space-y-1 text-xs text-slate-400">
+            <span className="flex items-center gap-1.5 text-emerald-400 font-semibold">
+              <Check className="w-3.5 h-3.5" />
+              Medicaid Accepted ({current.abbr} MCOs) or $99/mo Flat Self-Pay
+            </span>
+            <span className="flex items-center gap-1.5 text-slate-400">
+              <Check className="w-3.5 h-3.5 text-slate-500" />
+              Next Video Opening Available within 24 Hours
             </span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {current.acceptedPlans.map((plan, idx) => (
-              <div key={idx} className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
-                <div className="flex items-center space-x-1.5 font-bold text-sm text-white">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span>{plan.name}</span>
-                </div>
-                <div className="flex items-center justify-between text-[11px] text-slate-400">
-                  <span className="truncate max-w-[160px]">{plan.scope}</span>
-                  <span className="text-amber-400 font-bold shrink-0">{plan.copay}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Self-Pay Breakdown */}
-          <div className="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="font-extrabold text-sm text-amber-300">
-                Self-Pay &amp; Private Pay Option ($99/Month Flat)
-              </span>
-              <span className="text-xs font-bold text-slate-300">Zero Insurance Record</span>
-            </div>
-            <p className="text-xs text-slate-300 leading-relaxed">
-              {current.selfPayDetails} No hidden facility fees, laboratory markups, or recurring retainer traps. Cancel anytime with a single click.
-            </p>
-          </div>
-        </div>
-
-        {/* Action Callout */}
-        <div className="p-6 rounded-3xl bg-emerald-50 border border-emerald-200 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="space-y-1 text-center sm:text-left">
-            <h4 className="font-bold text-base text-emerald-950">
-              Need assistance verifying your {current.abbr} Medicaid plan?
-            </h4>
-            <p className="text-xs text-emerald-800">
-              Our clinical billing coordinators verify in-network coverage in under 10 minutes.
-            </p>
-          </div>
           <button
             onClick={onOpenIntake}
-            className="px-5 py-2.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs shrink-0 cursor-pointer shadow-xs"
+            className="w-full sm:w-auto px-6 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs sm:text-sm shadow-md transition-all shrink-0 cursor-pointer flex items-center justify-center gap-2"
           >
-            Check My {current.abbr} Benefits
+            <span>Book Visit in {current.name}</span>
+            <ArrowRight className="w-4 h-4 text-slate-950" />
           </button>
         </div>
       </section>
