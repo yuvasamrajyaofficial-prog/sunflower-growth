@@ -5,8 +5,9 @@ import ClinicalFooter from './components/ClinicalFooter';
 import Article1NaltrexoneOnline from './articles/Article1NaltrexoneOnline';
 import Article2StateTelehealth from './articles/Article2StateTelehealth';
 import Article3SinclairMethod from './articles/Article3SinclairMethod';
+import CommunityRedditHub from './articles/CommunityRedditHub';
 import IntakeBookingModal from './components/IntakeBookingModal';
-import { ArrowUp, Calendar } from 'lucide-react';
+import { ArrowUp } from 'lucide-react';
 
 export default function App() {
   const [activeArticleId, setActiveArticleId] = useState('naltrexone-online');
@@ -31,9 +32,9 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 selection:bg-amber-100 selection:text-amber-950">
+    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 selection:bg-amber-100 selection:text-amber-950 font-sans">
       
-      {/* Publication Clinical Header */}
+      {/* Publication Clinical Masthead Header */}
       <PublicationHeader
         activeArticleId={activeArticleId}
         setActiveArticleId={handleArticleChange}
@@ -46,10 +47,10 @@ export default function App() {
           {activeArticleId === 'naltrexone-online' && (
             <motion.div
               key="naltrexone-online"
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.25 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2 }}
             >
               <Article1NaltrexoneOnline onOpenIntake={() => setIntakeOpen(true)} />
             </motion.div>
@@ -58,10 +59,10 @@ export default function App() {
           {activeArticleId === 'state-telehealth' && (
             <motion.div
               key="state-telehealth"
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.25 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2 }}
             >
               <Article2StateTelehealth onOpenIntake={() => setIntakeOpen(true)} />
             </motion.div>
@@ -70,12 +71,24 @@ export default function App() {
           {activeArticleId === 'tsm-guide' && (
             <motion.div
               key="tsm-guide"
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.25 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2 }}
             >
               <Article3SinclairMethod onOpenIntake={() => setIntakeOpen(true)} />
+            </motion.div>
+          )}
+
+          {activeArticleId === 'reddit-hub' && (
+            <motion.div
+              key="reddit-hub"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2 }}
+            >
+              <CommunityRedditHub onOpenIntake={() => setIntakeOpen(true)} />
             </motion.div>
           )}
         </AnimatePresence>
