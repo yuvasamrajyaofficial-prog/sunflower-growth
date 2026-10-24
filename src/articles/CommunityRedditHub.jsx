@@ -11,6 +11,7 @@ import {
   CheckCircle2,
   Bookmark
 } from 'lucide-react';
+import ShareBar from '../components/ShareBar';
 
 // ── Professional Reddit Post Data ─────────────────────────────────────────────
 
@@ -198,7 +199,7 @@ Recovery is a medical process. It should be accessible like one.`,
 
 // ── Component ─────────────────────────────────────────────────────────────────
 
-export default function CommunityRedditHub({ onOpenIntake }) {
+export default function CommunityRedditHub({ onOpenIntake, meta }) {
   const [upvotes, setUpvotes] = useState({
     'reddit-1': 684,
     'reddit-2': 1420,
@@ -270,10 +271,19 @@ export default function CommunityRedditHub({ onOpenIntake }) {
             Evidence-Grounded
           </span>
         </div>
+
+        {/* Share toolbar */}
+        <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between">
+          <ShareBar
+            title={meta?.title || 'Clinical Community Publications on Reddit'}
+            url={meta?.slug || '/community/clinical-publications'}
+            description={meta?.description || ''}
+          />
+        </div>
       </header>
 
       {/* ── Context ── */}
-      <div className="article-prose mb-10">
+      <div id="toc-why-reddit" className="article-prose mb-10 scroll-mt-28">
         <p>
           Peer recovery subreddits collectively represent the largest real-world archives 
           of lived patient experience with Alcohol Use Disorder. For millions of individuals—
@@ -291,8 +301,14 @@ export default function CommunityRedditHub({ onOpenIntake }) {
 
       {/* ── Posts ── */}
       <section className="space-y-10">
-        {REDDIT_POSTS.map((post) => (
-          <div key={post.id} className="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+        {REDDIT_POSTS.map((post) => {
+          const tocId = post.id === 'reddit-1' ? 'toc-post-1' : post.id === 'reddit-2' ? 'toc-post-2' : 'toc-post-3';
+          return (
+            <div
+              key={post.id}
+              id={tocId}
+              className="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden scroll-mt-28"
+            >
 
             {/* Thread Header */}
             <div className="px-5 py-3.5 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
@@ -406,9 +422,23 @@ export default function CommunityRedditHub({ onOpenIntake }) {
                 </motion.div>
               )}
             </AnimatePresence>
-          </div>
-        ))}
+            </div>
+          );
+        })}
       </section>
+
+      {/* Share before CTA */}
+      <div className="my-10 p-5 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <span className="text-[13px] font-bold text-slate-900 block">Share these harm-reduction discussions</span>
+          <span className="text-[12px] text-slate-500">Help bring peer-reviewed science into everyday recovery conversations.</span>
+        </div>
+        <ShareBar
+          title={meta?.title || 'Clinical Community Publications on Reddit'}
+          url={meta?.slug || '/community/clinical-publications'}
+          description={meta?.description || ''}
+        />
+      </div>
 
       {/* End CTA */}
       <div className="mt-12 p-7 sm:p-9 rounded-2xl bg-slate-950 text-white border border-slate-800">

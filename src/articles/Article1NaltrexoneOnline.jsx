@@ -10,6 +10,7 @@ import {
   Check
 } from 'lucide-react';
 import { FAQ_DATA } from '../data/contentData';
+import ShareBar from '../components/ShareBar';
 
 const steps = [
   {
@@ -35,7 +36,7 @@ const steps = [
   }
 ];
 
-export default function Article1NaltrexoneOnline({ onOpenIntake }) {
+export default function Article1NaltrexoneOnline({ onOpenIntake, meta }) {
   const [openFaq, setOpenFaq] = useState(0);
   const [screenerAnswer, setScreenerAnswer] = useState(null);
 
@@ -84,6 +85,15 @@ export default function Article1NaltrexoneOnline({ onOpenIntake }) {
             Verified NPI
           </span>
         </div>
+
+        {/* Share toolbar */}
+        <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between">
+          <ShareBar
+            title={meta?.title || 'How to Get Naltrexone Online Without Going to Rehab'}
+            url={meta?.slug || '/resources/how-to-get-naltrexone-online-without-rehab'}
+            description={meta?.description || ''}
+          />
+        </div>
       </header>
 
       {/* ── Body ── */}
@@ -104,7 +114,7 @@ export default function Article1NaltrexoneOnline({ onOpenIntake }) {
           automated biological reflex—and willpower is simply not designed to override it indefinitely.
         </p>
 
-        <h2>Why Inpatient Rehab Fails Most People</h2>
+        <h2 id="toc-why-rehab-fails">Why Inpatient Rehab Fails Most People</h2>
 
         <p>
           For decades, the treatment industry operated on a single, rigid prescription: 
@@ -159,7 +169,7 @@ export default function Article1NaltrexoneOnline({ onOpenIntake }) {
           </div>
         </div>
 
-        <h2>How Naltrexone Works at the Neurochemical Level</h2>
+        <h2 id="toc-how-naltrexone-works">How Naltrexone Works at the Neurochemical Level</h2>
 
         <p>
           Naltrexone is an FDA-approved, non-narcotic medication classified as a pure 
@@ -183,7 +193,7 @@ export default function Article1NaltrexoneOnline({ onOpenIntake }) {
       </div>
 
       {/* ── JAMA Evidence Card ── */}
-      <div className="my-8 p-6 rounded-2xl bg-slate-950 text-white">
+      <div id="toc-jama-evidence" className="my-8 p-6 rounded-2xl bg-slate-950 text-white scroll-mt-28">
         <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 pb-4 border-b border-slate-800 mb-5">
           <div>
             <span className="text-[10px] font-bold uppercase tracking-widest text-amber-400 block mb-1">
@@ -222,7 +232,7 @@ export default function Article1NaltrexoneOnline({ onOpenIntake }) {
       </div>
 
       {/* ── Screener CTA ── */}
-      <div className="my-8 p-6 rounded-2xl bg-amber-50 border border-amber-200">
+      <div id="toc-pre-screen" className="my-8 p-6 rounded-2xl bg-amber-50 border border-amber-200 scroll-mt-28">
         <span className="text-[10px] font-extrabold uppercase tracking-widest text-amber-800 bg-amber-100 px-2.5 py-1 rounded-full inline-block mb-3">
           Clinical Pre-Screen
         </span>
@@ -303,7 +313,7 @@ export default function Article1NaltrexoneOnline({ onOpenIntake }) {
       </div>
 
       {/* ── 3-Step Process ── */}
-      <div className="my-8">
+      <div id="toc-3-steps" className="my-8 scroll-mt-28">
         <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight mb-2">
           How to Get Naltrexone Online: Three Steps
         </h2>
@@ -342,7 +352,7 @@ export default function Article1NaltrexoneOnline({ onOpenIntake }) {
       </div>
 
       {/* ── FAQ ── */}
-      <div className="my-8">
+      <div id="toc-faq" className="my-8 scroll-mt-28">
         <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight mb-5">
           Frequently Asked Questions
         </h2>
@@ -383,6 +393,19 @@ export default function Article1NaltrexoneOnline({ onOpenIntake }) {
             );
           })}
         </div>
+      </div>
+
+      {/* Share before CTA */}
+      <div className="my-10 p-5 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <span className="text-[13px] font-bold text-slate-900 block">Found this clinical guide helpful?</span>
+          <span className="text-[12px] text-slate-500">Share with patients, peers, or colleagues seeking evidence-based recovery options.</span>
+        </div>
+        <ShareBar
+          title={meta?.title || 'How to Get Naltrexone Online Without Going to Rehab'}
+          url={meta?.slug || '/resources/how-to-get-naltrexone-online-without-rehab'}
+          description={meta?.description || ''}
+        />
       </div>
 
       {/* ── End CTA ── */}

@@ -10,6 +10,7 @@ import {
   MapPin
 } from 'lucide-react';
 import { CLINICAL_LEADERSHIP } from '../data/contentData';
+import ShareBar from '../components/ShareBar';
 
 const plansByState = {
   PA: {
@@ -40,7 +41,7 @@ const plansByState = {
   }
 };
 
-export default function Article2StateTelehealth({ onOpenIntake }) {
+export default function Article2StateTelehealth({ onOpenIntake, meta }) {
   const [selectedState, setSelectedState] = useState('PA');
   const [verifiedPlan, setVerifiedPlan] = useState(null);
 
@@ -94,6 +95,15 @@ export default function Article2StateTelehealth({ onOpenIntake }) {
             Open intake in {current.name}
           </span>
         </div>
+
+        {/* Share toolbar */}
+        <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between">
+          <ShareBar
+            title={meta?.title || 'Online Addiction Therapy & Naltrexone in PA & MI'}
+            url={meta?.slug || '/locations/online-addiction-therapy-medicaid-pa-mi'}
+            description={meta?.description || ''}
+          />
+        </div>
       </header>
 
       {/* ── Body ── */}
@@ -113,7 +123,7 @@ export default function Article2StateTelehealth({ onOpenIntake }) {
           reimbursement and without requiring you to set foot in a clinic.
         </p>
 
-        <h2>Why Access Is the Central Problem in Addiction Care</h2>
+        <h2 id="toc-access-problem">Why Access Is the Central Problem in Addiction Care</h2>
 
         <p>
           The academic literature on Alcohol Use Disorder is clear: the most significant barrier 
@@ -136,7 +146,7 @@ export default function Article2StateTelehealth({ onOpenIntake }) {
       </div>
 
       {/* JAMA Evidence Block */}
-      <div className="my-8 p-6 rounded-2xl bg-slate-950 text-white">
+      <div id="toc-telehealth-evidence" className="my-8 p-6 rounded-2xl bg-slate-950 text-white scroll-mt-28">
         <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 pb-4 border-b border-slate-800 mb-5">
           <div>
             <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-400 block mb-1">
@@ -171,7 +181,7 @@ export default function Article2StateTelehealth({ onOpenIntake }) {
       </div>
 
       {/* Insurance Checker */}
-      <div className="my-8 p-6 rounded-2xl bg-sky-50 border border-sky-200">
+      <div id="toc-insurance-checker" className="my-8 p-6 rounded-2xl bg-sky-50 border border-sky-200 scroll-mt-28">
         <span className="text-[10px] font-extrabold uppercase tracking-widest text-sky-800 bg-sky-100 px-2.5 py-1 rounded-full inline-block mb-3">
           Insurance Verification
         </span>
@@ -227,7 +237,7 @@ export default function Article2StateTelehealth({ onOpenIntake }) {
       </div>
 
       {/* Care Team */}
-      <div className="my-8">
+      <div id="toc-care-team" className="my-8 scroll-mt-28">
         <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight mb-2">
           Your Licensed {current.name} Clinical Team
         </h2>
@@ -280,7 +290,7 @@ export default function Article2StateTelehealth({ onOpenIntake }) {
       </div>
 
       {/* Pricing Section */}
-      <div className="article-prose my-8">
+      <div id="toc-pricing" className="article-prose my-8 scroll-mt-28">
         <h2>Transparent Pricing in {current.name}</h2>
         <p>
           Healthcare billing in addiction medicine has historically been opaque. Sunflower Clinic 
@@ -305,6 +315,19 @@ export default function Article2StateTelehealth({ onOpenIntake }) {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Share before CTA */}
+      <div className="my-10 p-5 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <span className="text-[13px] font-bold text-slate-900 block">Know someone in PA or MI who needs care?</span>
+          <span className="text-[12px] text-slate-500">Share this guide on Medicaid coverage for telehealth addiction treatment.</span>
+        </div>
+        <ShareBar
+          title={meta?.title || 'Online Addiction Therapy & Naltrexone in PA & MI'}
+          url={meta?.slug || '/locations/online-addiction-therapy-medicaid-pa-mi'}
+          description={meta?.description || ''}
+        />
       </div>
 
       {/* End CTA */}

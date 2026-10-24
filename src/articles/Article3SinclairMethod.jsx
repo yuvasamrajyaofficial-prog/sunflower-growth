@@ -10,6 +10,7 @@ import {
   Pill,
   Bot
 } from 'lucide-react';
+import ShareBar from '../components/ShareBar';
 
 const comparisonRows = [
   {
@@ -39,7 +40,7 @@ const comparisonRows = [
   }
 ];
 
-export default function Article3SinclairMethod({ onOpenIntake }) {
+export default function Article3SinclairMethod({ onOpenIntake, meta }) {
   const [protocolChoice, setProtocolChoice] = useState(null);
 
   return (
@@ -84,6 +85,15 @@ export default function Article3SinclairMethod({ onOpenIntake }) {
             Level 1 Evidence
           </span>
         </div>
+
+        {/* Share toolbar */}
+        <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between">
+          <ShareBar
+            title={meta?.title || 'The Sinclair Method vs. Daily Naltrexone'}
+            url={meta?.slug || '/medications/naltrexone/sinclair-method-telehealth-guide'}
+            description={meta?.description || ''}
+          />
+        </div>
       </header>
 
       {/* ── Body ── */}
@@ -107,7 +117,7 @@ export default function Article3SinclairMethod({ onOpenIntake }) {
           under The Sinclair Method (TSM) for pharmacological extinction of cravings.
         </p>
 
-        <h2>How Pharmacological Extinction Works</h2>
+        <h2 id="toc-how-extinction-works">How Pharmacological Extinction Works</h2>
 
         <p>
           In the 1990s, Finnish researcher <strong>Dr. John David Sinclair</strong> published 
@@ -135,7 +145,7 @@ export default function Article3SinclairMethod({ onOpenIntake }) {
       </div>
 
       {/* Sinclair Study Card */}
-      <div className="my-8 p-6 rounded-2xl bg-slate-950 text-white">
+      <div id="toc-sinclair-study" className="my-8 p-6 rounded-2xl bg-slate-950 text-white scroll-mt-28">
         <div className="pb-4 border-b border-slate-800 mb-5">
           <span className="text-[10px] font-bold uppercase tracking-widest text-amber-400 block mb-1">
             Primary Study Archive
@@ -163,7 +173,7 @@ export default function Article3SinclairMethod({ onOpenIntake }) {
       </div>
 
       {/* Comparison Table */}
-      <div className="my-8">
+      <div id="toc-comparison-table" className="my-8 scroll-mt-28">
         <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight mb-2">
           Clinical Comparison: Daily Naltrexone vs. The Sinclair Method
         </h2>
@@ -197,7 +207,7 @@ export default function Article3SinclairMethod({ onOpenIntake }) {
       </div>
 
       {/* Protocol Matcher */}
-      <div className="my-8 p-6 rounded-2xl bg-amber-50 border border-amber-200">
+      <div id="toc-protocol-matcher" className="my-8 p-6 rounded-2xl bg-amber-50 border border-amber-200 scroll-mt-28">
         <span className="text-[10px] font-extrabold uppercase tracking-widest text-amber-800 bg-amber-100 px-2.5 py-1 rounded-full inline-block mb-3">
           Protocol Assessment
         </span>
@@ -271,7 +281,7 @@ export default function Article3SinclairMethod({ onOpenIntake }) {
       </div>
 
       {/* CBT + App Section */}
-      <div className="my-8">
+      <div id="toc-treatment-stack" className="my-8 scroll-mt-28">
         <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight mb-2">
           The Full Treatment Stack: Medication, Therapy & Digital Support
         </h2>
@@ -310,6 +320,19 @@ export default function Article3SinclairMethod({ onOpenIntake }) {
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Share before CTA */}
+      <div className="my-10 p-5 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <span className="text-[13px] font-bold text-slate-900 block">Exploring The Sinclair Method?</span>
+          <span className="text-[12px] text-slate-500">Share this clinical comparison of targeted extinction vs. daily morning dosing.</span>
+        </div>
+        <ShareBar
+          title={meta?.title || 'The Sinclair Method vs. Daily Naltrexone'}
+          url={meta?.slug || '/medications/naltrexone/sinclair-method-telehealth-guide'}
+          description={meta?.description || ''}
+        />
       </div>
 
       {/* End CTA */}
