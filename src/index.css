@@ -1,3 +1,5 @@
+/* Google Fonts must come first before any other rules */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
 @import "tailwindcss";
 
 @layer base {
@@ -10,38 +12,80 @@
     --color-emerald-trust: #10B981;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    background-color: #F8FAFC;
-    color: #0F172A;
-    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: #FFFFFF;
+    color: #111827;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* Article prose — Merriweather serif for journal-quality reading */
+  .article-prose {
+    font-family: 'Merriweather', Georgia, 'Times New Roman', serif;
+    line-height: 1.85;
+    color: #1e293b;
+  }
+
+  .article-prose p {
+    margin-bottom: 1.35rem;
+    font-size: 1.0625rem;
+  }
+
+  .article-prose h2 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 1.5rem;
+    letter-spacing: -0.025em;
+    color: #0f172a;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .article-prose h3 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 1.125rem;
+    letter-spacing: -0.015em;
+    color: #1e293b;
+    margin-top: 1.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .article-prose strong {
+    font-weight: 700;
+    color: #0f172a;
   }
 }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
   background: #f1f5f9;
 }
 ::-webkit-scrollbar-thumb {
   background: #cbd5e1;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
 }
 
-/* Subtle badge pulse */
-@keyframes subtle-pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.85; transform: scale(1.02); }
+/* Live pulsing indicator */
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
 }
 
-.animate-subtle-pulse {
-  animation: subtle-pulse 3s infinite ease-in-out;
+.live-dot {
+  animation: live-pulse 2s infinite ease-in-out;
 }

@@ -1,340 +1,349 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  ShieldCheck, 
-  Pill, 
-  Calendar, 
-  CheckCircle2, 
-  ChevronDown, 
-  Stethoscope, 
-  Clock, 
-  Truck, 
-  Brain, 
+import {
+  ShieldCheck,
+  CheckCircle2,
+  ChevronDown,
+  Calendar,
   ArrowRight,
   AlertCircle,
-  FileCheck,
-  Check,
-  Sparkles
+  Check
 } from 'lucide-react';
-import { JAMA_STUDIES, FAQ_DATA } from '../data/contentData';
+import { FAQ_DATA } from '../data/contentData';
+
+const steps = [
+  {
+    num: '01',
+    title: 'Complete a 3-Minute Clinical Pre-Screening',
+    subtitle: 'Confidential & Asynchronous',
+    desc: 'Answer a brief clinical questionnaire covering alcohol consumption patterns, liver function history, and current medications. Our intake coordinators review your responses and confirm eligibility—typically within the hour.',
+    deliverable: 'Instant eligibility confirmation'
+  },
+  {
+    num: '02',
+    title: 'Same-Day Video Consultation with a Licensed Physician',
+    subtitle: 'Board-Certified Addiction Medicine',
+    desc: 'Meet via HIPAA-secure video with Dr. Raphael Golebiowski, MD, or Dr. Glen Rebman, DO—both board-certified in addiction medicine—to discuss your history, goals, and the appropriate protocol (daily Naltrexone or The Sinclair Method).',
+    deliverable: 'Rx transmitted electronically within 15 minutes'
+  },
+  {
+    num: '03',
+    title: 'Pharmacy Pickup or Home Delivery',
+    subtitle: 'Medication + Digital Behavioral Support',
+    desc: 'Collect generic Naltrexone (50 mg) at your preferred local pharmacy or opt for discreet home delivery. Your clinical record syncs with the Sunflower Sober app for craving tracking, dosing reminders, and on-demand access to our behavioral health team.',
+    deliverable: 'Ongoing physician-supervised care'
+  }
+];
 
 export default function Article1NaltrexoneOnline({ onOpenIntake }) {
   const [openFaq, setOpenFaq] = useState(0);
   const [screenerAnswer, setScreenerAnswer] = useState(null);
 
-  const steps = [
-    {
-      num: "01",
-      title: "3-Minute Clinical Self-Check",
-      subtitle: "Confidential Online Triage",
-      desc: "Complete an asynchronous questionnaire assessing your alcohol consumption patterns, liver health, and ensuring you are not currently taking opioid pain medications.",
-      deliverable: "Instant Eligibility Confirmation"
-    },
-    {
-      num: "02",
-      title: "Same-Day Clinician Video Call",
-      subtitle: "State-Licensed Physician Consult",
-      desc: "Meet face-to-face via secure video with board-certified addiction physicians Dr. Raphael Golebiowski, MD or Dr. Glen Rebman, DO to calibrate your tailored protocol.",
-      deliverable: "Electronic Rx Transmitted in < 15 Min"
-    },
-    {
-      num: "03",
-      title: "Pharmacy Delivery + Sunflower Sober App",
-      subtitle: "Medication & Digital Behavioral Support",
-      desc: "Pick up generic Naltrexone (50mg) at your local pharmacy or receive discreet home delivery. Your patient account syncs directly with the Sunflower Sober app for craving tracking and 24/7 AI sponsor support.",
-      deliverable: "Active Ongoing Clinical Care"
-    }
-  ];
-
   return (
-    <article className="max-w-3xl mx-auto space-y-10 text-slate-800">
-      
-      {/* Editorial Meta Header & Medical Byline */}
-      <header className="space-y-4 border-b border-slate-200 pb-8">
-        <div className="flex flex-wrap items-center gap-2 text-xs font-semibold text-slate-500">
-          <span className="px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 font-bold uppercase tracking-wider text-[10px]">
+    <article className="max-w-3xl mx-auto" style={{ paddingBottom: '3rem' }}>
+
+      {/* ── Article Header ── */}
+      <header className="pb-8 mb-8 border-b border-gray-200">
+        
+        {/* Category & meta */}
+        <div className="flex flex-wrap items-center gap-2 mb-5">
+          <span className="text-[11px] font-bold uppercase tracking-widest text-amber-700 bg-amber-50 border border-amber-200 px-2.5 py-1 rounded-full">
             Clinical Guide
           </span>
-          <span>•</span>
-          <span>6 min read</span>
-          <span>•</span>
-          <span>Updated October 2026</span>
+          <span className="text-[11px] text-slate-400">·</span>
+          <span className="text-[11px] text-slate-400 font-medium">6 min read</span>
+          <span className="text-[11px] text-slate-400">·</span>
+          <span className="text-[11px] text-slate-400 font-medium">Updated October 2026</span>
         </div>
 
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-950 tracking-tight leading-tight">
-          How to Get Naltrexone Online Without Going to Rehab
+        <h1 className="text-3xl sm:text-4xl lg:text-[2.6rem] font-extrabold text-slate-950 tracking-tight leading-tight mb-5" style={{ lineHeight: 1.15 }}>
+          How to Get Naltrexone Online<br className="hidden sm:block" /> Without Going to Rehab
         </h1>
 
-        <p className="text-lg text-slate-600 leading-relaxed font-normal">
-          You don’t need a $30,000 inpatient rehab stay to stop alcohol cravings. Learn how to get an online Naltrexone prescription and licensed therapy from home.
+        <p className="text-lg text-slate-600 leading-relaxed mb-6 font-normal">
+          You don't need a $30,000 inpatient stay to address alcohol dependence. 
+          A same-day telehealth visit with a board-certified addiction physician can 
+          put an FDA-approved prescription in your hands before the end of the day.
         </p>
 
-        {/* Medical Reviewer Schema Badge */}
-        <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-2xs flex items-center justify-between gap-4">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-full bg-slate-900 text-amber-400 font-bold flex items-center justify-center text-xs shrink-0">
-              MD
-            </div>
-            <div className="text-xs">
-              <span className="font-bold text-slate-900 block">
-                Medically Reviewed by Dr. Raphael Golebiowski, MD &amp; Dr. Glen Rebman, DO
-              </span>
-              <span className="text-slate-500">
-                Medical Director &amp; Senior Addiction Psychiatrist • Board-Certified Addiction Medicine
-              </span>
-            </div>
+        {/* Reviewer card */}
+        <div className="flex items-center gap-4 p-4 rounded-xl bg-white border border-gray-200 shadow-sm">
+          <div className="w-11 h-11 rounded-full bg-slate-900 text-amber-400 font-bold flex items-center justify-center text-xs shrink-0 tracking-wide">
+            MD
           </div>
-          <span className="hidden sm:inline-flex items-center px-2 py-1 rounded bg-emerald-50 text-emerald-800 border border-emerald-200 text-[10px] font-bold">
-            <ShieldCheck className="w-3 h-3 mr-1 text-emerald-600" />
+          <div className="flex-1 min-w-0">
+            <span className="text-[12px] font-bold text-slate-900 block">
+              Medically reviewed by Dr. Raphael Golebiowski, MD & Dr. Glen Rebman, DO
+            </span>
+            <span className="text-[11px] text-slate-500">
+              Medical Director & Senior Addiction Psychiatrist · Board-Certified Addiction Medicine
+            </span>
+          </div>
+          <span className="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-[11px] font-bold shrink-0">
+            <ShieldCheck className="w-3 h-3 text-emerald-600" />
             Verified NPI
           </span>
         </div>
       </header>
 
-      {/* THE HOOK (First 100 Words) */}
-      <section className="space-y-4 text-base sm:text-lg leading-relaxed text-slate-700">
+      {/* ── Body ── */}
+      <div className="article-prose">
+
         <p>
-          You poured your first drink at 6:30 PM with the genuine intention of stopping after one. By 9:15 PM, the bottle is empty, a familiar wave of self-recrimination sets in, and you spend the next morning promising yourself that tonight will be different.
+          You intended to stop after one drink. By the third hour of the evening, 
+          the bottle was empty and the familiar cycle of remorse had already begun. 
+          The next morning, you promised yourself tonight would be different.
         </p>
         <p>
-          It almost never is.
+          It rarely is—and the reason has nothing to do with willpower.
         </p>
         <p>
-          That failure has nothing to do with your willpower or your moral character. <strong>Your brain has spent years building dense neurochemical pathways that equate alcohol with survival-level dopamine relief.</strong> When an alcohol craving strikes, you aren't fighting a lack of discipline—you are fighting an automated biological reflex.
+          <strong>Your brain has spent years constructing dense neurochemical pathways 
+          that associate alcohol with survival-level dopamine relief.</strong> When a craving 
+          strikes, you are not fighting a failure of character. You are up against an 
+          automated biological reflex—and willpower is simply not designed to override it indefinitely.
         </p>
-      </section>
 
-      {/* SECTION 2: Why Most People Don't Need Inpatient Rehab */}
-      <section className="space-y-4 pt-2">
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight">
-          Why Most People Don't Need Inpatient Rehab to Change Their Drinking
-        </h2>
+        <h2>Why Inpatient Rehab Fails Most People</h2>
 
-        <div className="text-base sm:text-lg leading-relaxed text-slate-700 space-y-4">
-          <p>
-            For decades, the commercial addiction industry insisted on a single, rigid mandate: you must step away from your family, take medical leave from your job, and spend 30 days in a residential treatment center costing upwards of <strong>$30,000 to $60,000 out-of-pocket</strong>.
-          </p>
-          <p>
-            While inpatient detox is critical for acute medical withdrawal, it presents a fundamental architectural flaw for everyday drinking: <strong>it treats your cravings in an artificial vacuum.</strong>
-          </p>
-          <p>
-            In a residential facility, remaining abstinent is easy because there is no evening commute, no stressful work inbox, and no wine bottles sitting in your kitchen pantry.
-          </p>
-          <p>
-            The moment you return home, those unexamined environmental triggers strike with full intensity. Peer-reviewed data reveals that between <strong>50% and 80% of residential rehab patients relapse within their first year post-discharge</strong>.
-          </p>
-          <p>
-            To permanently extinguish an alcohol craving, you must rewire the neurochemical response in the exact living room, pantry, and daily routine where that craving was originally conditioned.
-          </p>
-        </div>
+        <p>
+          For decades, the treatment industry operated on a single, rigid prescription: 
+          step away from your career, your family, and your life for 30 days and check 
+          into a residential facility costing <strong>$30,000 to $60,000 out-of-pocket.</strong>
+        </p>
+        <p>
+          For severe, acute withdrawal—the kind that carries risk of seizures or delirium 
+          tremens—medically supervised inpatient detox remains essential. But for the vast 
+          majority of people with Alcohol Use Disorder, inpatient treatment carries a 
+          fundamental design flaw.
+        </p>
+        <p>
+          It treats your cravings in an artificial environment. Inside a residential 
+          facility, there is no evening commute, no wine in the refrigerator, and no 
+          stress-loaded inbox. Staying sober in that context is structurally much simpler. 
+          But the moment you return home, every conditioned environmental trigger fires 
+          with full intensity—and you have had no practice managing them. Peer-reviewed 
+          longitudinal data consistently shows <strong>50% to 80% of residential patients 
+          relapse within the first 12 months of discharge.</strong>
+        </p>
+        <p>
+          To permanently extinguish an alcohol craving, the rewiring must happen in the 
+          same living room, kitchen, and daily routine where the craving was originally conditioned.
+        </p>
 
-        {/* Solid Comparison Box */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-          <div className="p-5 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-500 block">
+        {/* Comparison table */}
+        <div className="not-prose my-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="p-5 rounded-xl bg-slate-50 border border-slate-200">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400 block mb-2">
               Traditional 30-Day Rehab
             </span>
-            <span className="text-2xl font-black text-slate-900 block">$30,000 – $60,000</span>
-            <ul className="text-xs text-slate-600 space-y-1.5 pt-1">
-              <li>• Requires 30–60 days away from career &amp; family</li>
-              <li>• Disconnects you from your real-world environment</li>
-              <li>• Mandates immediate lifetime abstinence pledges</li>
-              <li>• 50% to 80% 1-year relapse rate post-discharge</li>
+            <span className="text-2xl font-black text-slate-900 block mb-3">$30,000 – $60,000</span>
+            <ul className="text-[12px] text-slate-600 space-y-1.5">
+              <li className="flex items-start gap-1.5"><span className="text-slate-300 mt-0.5">–</span> Requires 30–60 days away from work & family</li>
+              <li className="flex items-start gap-1.5"><span className="text-slate-300 mt-0.5">–</span> Treats cravings in an artificial environment</li>
+              <li className="flex items-start gap-1.5"><span className="text-slate-300 mt-0.5">–</span> Demands immediate lifetime abstinence commitment</li>
+              <li className="flex items-start gap-1.5"><span className="text-slate-300 mt-0.5">–</span> 50–80% 12-month relapse rate post-discharge</li>
             </ul>
           </div>
-
-          <div className="p-5 rounded-xl bg-amber-50/70 border border-amber-300 space-y-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-amber-800 block">
+          <div className="p-5 rounded-xl bg-amber-50 border border-amber-200">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-amber-700 block mb-2">
               Sunflower Outpatient Telehealth
             </span>
-            <span className="text-2xl font-black text-slate-900 block">$0 – $15 Co-pay or $99/mo</span>
-            <ul className="text-xs text-slate-700 space-y-1.5 pt-1">
-              <li>• 100% confidential visits from your living room</li>
-              <li>• Covered by state Medicaid (PA &amp; MI) &amp; private insurance</li>
-              <li>• Treats cravings in your real-life environment</li>
-              <li>• Physician-supervised pharmacotherapy &amp; digital CBT</li>
+            <span className="text-2xl font-black text-slate-900 block mb-3">$0 – $15 co-pay or $99/mo</span>
+            <ul className="text-[12px] text-slate-700 space-y-1.5">
+              <li className="flex items-start gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 mt-0.5 shrink-0" /> 100% confidential—from your own home</li>
+              <li className="flex items-start gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 mt-0.5 shrink-0" /> Covered by Medicaid (PA & MI) & private insurance</li>
+              <li className="flex items-start gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 mt-0.5 shrink-0" /> Treats cravings in your real-life environment</li>
+              <li className="flex items-start gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 mt-0.5 shrink-0" /> Physician-supervised pharmacotherapy + digital CBT</li>
             </ul>
           </div>
         </div>
-      </section>
 
-      {/* SECTION 3: What Naltrexone Actually Does to Your Brain */}
-      <section className="space-y-4 pt-4">
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight">
-          What Naltrexone Actually Does to Your Brain
-        </h2>
+        <h2>How Naltrexone Works at the Neurochemical Level</h2>
 
-        <div className="text-base sm:text-lg leading-relaxed text-slate-700 space-y-4">
-          <p>
-            Naltrexone is an FDA-approved non-narcotic medication that functions as a <strong>pure opioid receptor antagonist</strong>. Unlike sedatives or habit-forming medications, Naltrexone has zero abuse potential, causes no physical dependence, and produces no intoxicating buzz or sedation.
-          </p>
-          <p>
-            When you drink alcohol, your central nervous system triggers a rapid release of beta-endorphins. These endorphins bind directly to your brain's <strong>mu-opioid receptors</strong>, which downstream causes a massive dopamine surge inside your nucleus accumbens.
-          </p>
-          <p>
-            That chemical surge is what your subconscious brain registers as profound relief and reward, compelling you to pour a second, third, and fourth drink.
-          </p>
-          <p>
-            Naltrexone cleanly sits on those exact mu-opioid receptors and blocks them. <strong>When you drink, the endorphins have nowhere to bind.</strong> The compulsive urge to keep drinking is quieted, allowing you to stop after one drink or lose interest altogether.
-          </p>
-        </div>
+        <p>
+          Naltrexone is an FDA-approved, non-narcotic medication classified as a pure 
+          opioid receptor antagonist. It carries no abuse potential, produces no intoxication 
+          or sedation, and creates no physical dependence. It is, in every clinical sense, 
+          a remarkably clean drug.
+        </p>
+        <p>
+          When you drink alcohol, your central nervous system triggers a cascade release 
+          of beta-endorphins. These endorphins bind to the brain's <strong>mu-opioid receptors</strong>, 
+          which then drive a surge of dopamine in the nucleus accumbens—the brain's primary 
+          reward center. That dopamine flood is what your subconscious registers as profound 
+          relief and reward, compelling you to pour another drink.
+        </p>
+        <p>
+          Naltrexone occupies those exact mu-opioid receptors and blocks them. <strong>When 
+          you drink while taking Naltrexone, the endorphins have nowhere to bind.</strong> The 
+          compulsive urge to continue drinking is neurochemically silenced—not by willpower, 
+          but by pharmacology.
+        </p>
+      </div>
 
-        {/* JAMA COMBINE Trial Clinical Card */}
-        <div className="p-6 rounded-2xl bg-slate-900 text-white space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
-            <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400 block">
-                PEER-REVIEWED CLINICAL GROUNDING
-              </span>
-              <h3 className="text-lg font-bold text-white">
-                The JAMA COMBINE Trial (1,383 Patients)
-              </h3>
-            </div>
-            <span className="text-xs text-slate-400 font-mono">
-              JAMA. 2006;295(17):2003-2017
+      {/* ── JAMA Evidence Card ── */}
+      <div className="my-8 p-6 rounded-2xl bg-slate-950 text-white">
+        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 pb-4 border-b border-slate-800 mb-5">
+          <div>
+            <span className="text-[10px] font-bold uppercase tracking-widest text-amber-400 block mb-1">
+              Peer-Reviewed Evidence
             </span>
+            <h3 className="text-[1.05rem] font-bold text-white leading-snug">
+              The JAMA COMBINE Trial (Anton et al.)
+            </h3>
+            <span className="text-[11px] text-slate-500 font-mono">JAMA. 2006;295(17):2003–2017</span>
           </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="p-4 rounded-xl bg-slate-800/80 border border-slate-700">
-              <span className="text-2xl font-black text-amber-400 block">74%</span>
-              <span className="text-xs text-slate-300 font-semibold block mt-0.5">Good Clinical Outcome</span>
-              <p className="text-[11px] text-slate-400 mt-1">
-                Patients receiving oral Naltrexone + medical management maintained sustained recovery without hospital admission.
-              </p>
-            </div>
-
-            <div className="p-4 rounded-xl bg-slate-800/80 border border-slate-700">
-              <span className="text-2xl font-black text-emerald-400 block">28% Drop</span>
-              <span className="text-xs text-slate-300 font-semibold block mt-0.5">Heavy Drinking Days</span>
-              <p className="text-[11px] text-slate-400 mt-1">
-                Significant, sustained reduction in heavy drinking episodes compared to placebo controls (p &lt; 0.001).
-              </p>
-            </div>
-          </div>
-
-          <p className="text-xs text-slate-300 leading-relaxed pt-1">
-            <strong>The Takeaway:</strong> Outpatient primary care pharmacotherapy with Naltrexone delivers clinical outcomes that match or exceed expensive residential stays at a fraction of the cost.
-          </p>
-        </div>
-      </section>
-
-      {/* CONTEXTUAL CTA 1: Mid-Funnel Micro-Commitment */}
-      <section className="p-6 rounded-2xl bg-amber-50 border border-amber-300 space-y-4">
-        <div className="space-y-1">
-          <span className="text-[10px] font-extrabold uppercase tracking-wider text-amber-900 bg-amber-200/80 px-2 py-0.5 rounded inline-block">
-            Step 1: Clinical Pre-Check
+          <span className="shrink-0 text-[10px] font-bold text-slate-400 bg-slate-800 px-2.5 py-1 rounded border border-slate-700">
+            1,383 Patients · 11 Sites
           </span>
-          <h3 className="text-xl font-extrabold text-slate-950">
-            Quick Pre-Screen: Is Outpatient Naltrexone Right For You?
-          </h3>
-          <p className="text-xs sm:text-sm text-slate-700">
-            Select your current situation below to receive instant suitability guidance:
-          </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
-          <button
-            onClick={() => setScreenerAnswer('suitable')}
-            className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer ${
-              screenerAnswer === 'suitable'
-                ? 'border-amber-500 bg-white ring-2 ring-amber-400 font-semibold shadow-xs'
-                : 'border-amber-200 bg-white/80 hover:bg-white text-slate-800'
-            }`}
-          >
-            <div className="font-bold text-xs sm:text-sm text-slate-900 flex items-center gap-1.5">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-              <span>I want to reduce or stop cravings</span>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
+          {[
+            { stat: '74%', label: 'Good Clinical Outcome', detail: 'Naltrexone + medical management achieved sustained recovery without hospital admission' },
+            { stat: '28%', label: 'Reduction in Heavy Drinking', detail: 'Significant, sustained drop in heavy drinking episodes vs. placebo controls (p < 0.001)' },
+            { stat: '97%', label: 'Cost Reduction', detail: 'Outpatient telehealth protocol vs. average 30-day residential inpatient cost' }
+          ].map((item, i) => (
+            <div key={i} className="p-4 rounded-xl bg-slate-800/80 border border-slate-700">
+              <span className="text-2xl font-black text-amber-400 block">{item.stat}</span>
+              <span className="text-[11px] font-bold text-slate-300 block mt-0.5 mb-1.5">{item.label}</span>
+              <p className="text-[11px] text-slate-400 leading-relaxed">{item.detail}</p>
             </div>
-            <p className="text-[11px] text-slate-600 mt-1">
-              I have stable liver function and do not take daily prescription opioid painkillers.
-            </p>
-          </button>
-
-          <button
-            onClick={() => setScreenerAnswer('opioids')}
-            className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer ${
-              screenerAnswer === 'opioids'
-                ? 'border-amber-500 bg-white ring-2 ring-amber-400 font-semibold shadow-xs'
-                : 'border-amber-200 bg-white/80 hover:bg-white text-slate-800'
-            }`}
-          >
-            <div className="font-bold text-xs sm:text-sm text-slate-900 flex items-center gap-1.5">
-              <AlertCircle className="w-4 h-4 text-amber-600" />
-              <span>I currently take daily opioid pain meds</span>
-            </div>
-            <p className="text-[11px] text-slate-600 mt-1">
-              Requires a safe clinical washout period before Naltrexone to avoid precipitated withdrawal.
-            </p>
-          </button>
+          ))}
         </div>
 
-        {screenerAnswer && (
-          <div className="p-3.5 rounded-xl bg-white border border-amber-300 text-xs text-slate-800 leading-relaxed">
-            {screenerAnswer === 'suitable' ? (
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div>
-                  <strong className="text-emerald-800 font-bold block">✅ High Eligibility for Outpatient Telehealth:</strong>
-                  You meet baseline clinical requirements for same-day Naltrexone evaluation. Our physicians can see you today in PA, MI, OH, NY, NJ, CA, FL, and TX.
+        <p className="text-[12px] text-slate-300 leading-relaxed">
+          <strong className="text-slate-100">Clinical Takeaway:</strong>{' '}
+          Outpatient primary care pharmacotherapy with Naltrexone delivers outcomes 
+          that match or exceed expensive residential treatment at a fraction of the cost—
+          without requiring patients to leave their jobs, families, or communities.
+        </p>
+      </div>
+
+      {/* ── Screener CTA ── */}
+      <div className="my-8 p-6 rounded-2xl bg-amber-50 border border-amber-200">
+        <span className="text-[10px] font-extrabold uppercase tracking-widest text-amber-800 bg-amber-100 px-2.5 py-1 rounded-full inline-block mb-3">
+          Clinical Pre-Screen
+        </span>
+        <h3 className="text-xl font-extrabold text-slate-950 mb-1">
+          Is Outpatient Naltrexone Right for You?
+        </h3>
+        <p className="text-[13px] text-slate-600 mb-4">
+          Select your current situation to receive immediate clinical guidance:
+        </p>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+          {[
+            {
+              id: 'suitable',
+              icon: <CheckCircle2 className="w-4 h-4 text-emerald-600" />,
+              label: 'I want to reduce or stop alcohol cravings',
+              sub: 'I have stable liver function and am not currently taking daily opioid pain medications.'
+            },
+            {
+              id: 'opioids',
+              icon: <AlertCircle className="w-4 h-4 text-amber-600" />,
+              label: 'I currently take daily opioid pain medications',
+              sub: 'A clinical washout protocol is required before initiating Naltrexone.'
+            }
+          ].map((opt) => (
+            <button
+              key={opt.id}
+              onClick={() => setScreenerAnswer(opt.id)}
+              className={`p-4 rounded-xl border text-left transition-all cursor-pointer ${
+                screenerAnswer === opt.id
+                  ? 'border-amber-400 bg-white ring-2 ring-amber-300 shadow-sm'
+                  : 'border-amber-200 bg-white/70 hover:bg-white hover:shadow-sm'
+              }`}
+            >
+              <div className="font-bold text-[13px] text-slate-900 flex items-center gap-1.5 mb-1">
+                {opt.icon}
+                {opt.label}
+              </div>
+              <p className="text-[11px] text-slate-500 pl-5">{opt.sub}</p>
+            </button>
+          ))}
+        </div>
+
+        <AnimatePresence>
+          {screenerAnswer && (
+            <motion.div
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 6 }}
+              className="p-4 rounded-xl bg-white border border-amber-200 text-[12px] text-slate-800"
+            >
+              {screenerAnswer === 'suitable' ? (
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div>
+                    <strong className="text-emerald-800 block mb-0.5">✓ You appear eligible for same-day telehealth care.</strong>
+                    You meet baseline clinical requirements for outpatient Naltrexone evaluation. 
+                    Our physicians are available today in PA, MI, OH, NY, NJ, CA, FL, and TX.
+                  </div>
+                  <button
+                    onClick={onOpenIntake}
+                    className="px-4 py-2 rounded-lg bg-slate-950 text-white font-bold text-[12px] shrink-0 cursor-pointer hover:bg-slate-800 transition-colors whitespace-nowrap"
+                  >
+                    Schedule a Visit →
+                  </button>
                 </div>
-                <button
-                  onClick={onOpenIntake}
-                  className="px-4 py-2 rounded-lg bg-slate-950 text-white font-bold text-xs shrink-0 cursor-pointer hover:bg-slate-800"
-                >
-                  Book Video Consult &rarr;
-                </button>
-              </div>
-            ) : (
-              <div>
-                <strong className="text-amber-900 font-bold block">⚠️ Washout Protocol Required:</strong>
-                Because Naltrexone blocks opioid receptors, taking it while opioids (like Oxycodone or Tramadol) are in your bloodstream will trigger acute withdrawal. Our clinicians can guide you through a safe tapering schedule.
-              </div>
-            )}
-          </div>
-        )}
-      </section>
+              ) : (
+                <div>
+                  <strong className="text-amber-800 block mb-0.5">⚠ A washout protocol is required before initiating Naltrexone.</strong>
+                  Because Naltrexone blocks opioid receptors, administering it while opioids 
+                  remain in your system will precipitate acute withdrawal. Our clinicians are 
+                  experienced with safe tapering protocols—please book a consultation to 
+                  discuss your specific medications and timeline.
+                </div>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
 
-      {/* SECTION 4: How to Get Naltrexone Online in 3 Simple Steps */}
-      <section className="space-y-6 pt-4">
-        <div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight">
-            How to Get Naltrexone Online in 3 Simple Steps
-          </h2>
-          <p className="text-base text-slate-600 mt-1">
-            Our low-barrier medical protocol moves you from assessment to prescription in under 24 hours.
-          </p>
-        </div>
+      {/* ── 3-Step Process ── */}
+      <div className="my-8">
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight mb-2">
+          How to Get Naltrexone Online: Three Steps
+        </h2>
+        <p className="text-[14px] text-slate-500 mb-6">
+          Our low-barrier clinical protocol moves you from assessment to prescription 
+          in under 24 hours.
+        </p>
 
         <div className="space-y-4">
           {steps.map((st, idx) => (
             <div
               key={idx}
-              className="p-5 rounded-2xl bg-white border border-slate-200 shadow-2xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+              className="p-5 rounded-2xl bg-white border border-gray-200 shadow-sm flex flex-col sm:flex-row items-start justify-between gap-4"
             >
-              <div className="space-y-1">
-                <div className="flex items-center space-x-2">
-                  <span className="w-6 h-6 rounded-full bg-slate-900 text-white text-xs font-black flex items-center justify-center">
-                    {idx + 1}
+              <div className="flex-1">
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="w-7 h-7 rounded-full bg-slate-950 text-amber-400 text-[11px] font-black flex items-center justify-center shrink-0">
+                    {st.num}
                   </span>
-                  <h3 className="font-extrabold text-base text-slate-950">{st.title}</h3>
+                  <div>
+                    <h3 className="font-bold text-[14px] text-slate-950 leading-snug">{st.title}</h3>
+                    <span className="text-[11px] text-slate-400 font-medium">{st.subtitle}</span>
+                  </div>
                 </div>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed pl-8">
-                  {st.desc}
-                </p>
+                <p className="text-[13px] text-slate-600 leading-relaxed pl-10">{st.desc}</p>
               </div>
-
-              <div className="shrink-0 pl-8 sm:pl-0 text-xs font-bold text-emerald-700 flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                <span>{st.deliverable}</span>
+              <div className="shrink-0 sm:text-right pl-10 sm:pl-0">
+                <span className="inline-flex items-center gap-1.5 text-[11px] font-bold text-emerald-700">
+                  <Check className="w-3.5 h-3.5 text-emerald-600" />
+                  {st.deliverable}
+                </span>
               </div>
             </div>
           ))}
         </div>
-      </section>
+      </div>
 
-      {/* SECTION 5: FAQ Accordion */}
-      <section className="space-y-4 pt-4">
-        <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight">
+      {/* ── FAQ ── */}
+      <div className="my-8">
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight mb-5">
           Frequently Asked Questions
         </h2>
 
@@ -344,25 +353,29 @@ export default function Article1NaltrexoneOnline({ onOpenIntake }) {
             return (
               <div
                 key={idx}
-                className="rounded-xl border border-slate-200 bg-white overflow-hidden shadow-2xs"
+                className="rounded-xl border border-gray-200 bg-white overflow-hidden"
               >
                 <button
                   onClick={() => setOpenFaq(isOpen ? null : idx)}
-                  className="w-full p-4 text-left flex items-center justify-between gap-4 font-bold text-sm text-slate-900 cursor-pointer hover:bg-slate-50"
+                  className="w-full px-5 py-4 text-left flex items-center justify-between gap-4 font-semibold text-[14px] text-slate-900 cursor-pointer hover:bg-slate-50 transition-colors"
                 >
                   <span>{faq.q}</span>
-                  <ChevronDown className={`w-4 h-4 text-slate-400 shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180 text-amber-500' : ''}`} />
+                  <ChevronDown
+                    className={`w-4 h-4 text-slate-400 shrink-0 transition-transform duration-200 ${
+                      isOpen ? 'rotate-180 text-amber-500' : ''
+                    }`}
+                  />
                 </button>
-
                 <AnimatePresence>
                   {isOpen && (
                     <motion.div
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: 'auto' }}
                       exit={{ opacity: 0, height: 0 }}
-                      className="px-4 pb-4 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100 bg-slate-50/50"
+                      transition={{ duration: 0.2 }}
+                      className="px-5 pb-5 text-[13px] text-slate-600 leading-relaxed border-t border-slate-100 bg-slate-50/50"
                     >
-                      <p className="pt-2">{faq.a}</p>
+                      <p className="pt-4">{faq.a}</p>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -370,44 +383,47 @@ export default function Article1NaltrexoneOnline({ onOpenIntake }) {
             );
           })}
         </div>
-      </section>
+      </div>
 
-      {/* CONTEXTUAL CTA 2: Primary End-of-Funnel Offer */}
-      <section className="p-6 sm:p-8 rounded-2xl bg-slate-950 text-white space-y-5 border border-slate-800 shadow-lg">
-        <div className="space-y-2">
-          <span className="text-[10px] font-black uppercase tracking-wider text-amber-400 block">
-            CONFIDENTIAL TELEHEALTH INTAKE
-          </span>
-          <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-            Ready to Extinguish Alcohol Cravings from Home?
-          </h3>
-          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-xl">
-            You do not need to pause your career, spend $30,000, or white-knuckle through another stressful evening. Same-day video appointments are open with board-certified addiction physicians across PA, MI, OH, NY, NJ, CA, FL, and TX.
-          </p>
-        </div>
+      {/* ── End CTA ── */}
+      <div className="mt-10 p-7 sm:p-9 rounded-2xl bg-slate-950 text-white border border-slate-800">
+        <span className="text-[10px] font-black uppercase tracking-widest text-amber-400 block mb-2">
+          Confidential Telehealth Intake
+        </span>
+        <h3 className="text-2xl sm:text-3xl font-black text-white tracking-tight mb-3">
+          Begin Treatment from Home — Today
+        </h3>
+        <p className="text-[13px] text-slate-400 leading-relaxed mb-6 max-w-xl">
+          You do not need to pause your career, spend $30,000, or white-knuckle through 
+          another difficult evening. Same-day video appointments are available with 
+          board-certified addiction physicians across eight states.
+        </p>
 
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-2 border-t border-slate-800">
-          <div className="space-y-1 text-xs text-slate-400">
-            <span className="flex items-center gap-1.5 text-emerald-400 font-semibold">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 pt-5 border-t border-slate-800">
+          <div className="space-y-1.5 text-[12px]">
+            <span className="flex items-center gap-2 text-emerald-400 font-semibold">
               <Check className="w-3.5 h-3.5" />
-              Medicaid Accepted ($0–$15 Co-Pay) or Flat $99/mo Self-Pay
+              Medicaid accepted ($0–$15 co-pay) or flat $99/mo self-pay
             </span>
-            <span className="flex items-center gap-1.5 text-slate-400">
-              <Check className="w-3.5 h-3.5 text-slate-500" />
-              Electronic Rx Sent to Your Preferred Local Pharmacy in 15 Minutes
+            <span className="flex items-center gap-2 text-slate-400">
+              <Check className="w-3.5 h-3.5 text-slate-600" />
+              Electronic prescription sent to your pharmacy within 15 minutes
+            </span>
+            <span className="flex items-center gap-2 text-slate-400">
+              <Check className="w-3.5 h-3.5 text-slate-600" />
+              No employer notification required · HIPAA-compliant visits
             </span>
           </div>
 
           <button
             onClick={onOpenIntake}
-            className="w-full sm:w-auto px-6 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs sm:text-sm shadow-md transition-all shrink-0 cursor-pointer flex items-center justify-center gap-2"
+            className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-[14px] shadow-sm transition-all shrink-0 cursor-pointer flex items-center justify-center gap-2"
           >
-            <span>Schedule Telehealth Visit</span>
-            <ArrowRight className="w-4 h-4 text-slate-950" />
+            Schedule Telehealth Visit
+            <ArrowRight className="w-4 h-4" />
           </button>
         </div>
-      </section>
-
+      </div>
     </article>
   );
 }
